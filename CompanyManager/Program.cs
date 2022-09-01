@@ -1,7 +1,16 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using CompanyManager.Repositories;
+using LiteDB;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//LiteDb
+builder.Services.AddSingleton<ILiteDatabase>(new LiteDatabase("database.db"));
+
+//add dependecy injection here
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
@@ -19,6 +28,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

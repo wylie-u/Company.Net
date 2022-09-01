@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CompanyManager.Models;
+using CompanyManager.ViewModels;
 
 namespace CompanyManager.Controllers;
 
@@ -22,6 +23,23 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    public IActionResult Signup()
+    {
+        return View();
+    }
+
+    // should this be in the user controller??????
+    //[HttpPost]
+    //public IActionResult Signup(UserViewModel user)
+    //{
+    //    // if model is valid 
+    //    if (ModelState.IsValid)
+    //    {
+    //        return RedirectToAction("Index");
+    //    }
+    //    return View();
+    //}
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
