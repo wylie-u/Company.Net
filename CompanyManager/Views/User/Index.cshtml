@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CompanyManager.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Information";
+}
+
+<div><b>Welcome to the Company!</b><br /></div>
+<p>
+    @Html.ActionLink("Add Employee", "Add")
+</p>
+<table class="table table-bordered table-responsive table-hover">
+    @*//give me the display name for each header
+        // DisplayNameFor = column
+    *@
+
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+        <th>@Html.DisplayNameFor(model => model.LastName)</th>
+        @*<th>@Html.DisplayNameFor(model => model.Age)</th>
+        <th>@Html.DisplayNameFor(model => model.isActive)</th>*@
+    </tr>
+    @*list out each employee on new row*@
+    @foreach (var item in Model)
+    {
+        @*//give me the display name for each header
+            // DisplayName = value
+        *@
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+            @*<td>@Html.DisplayFor(modelItem => item.Age)</td>
+            <td>@Html.DisplayFor(modelItem => item.isActive)</td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id = item.PrimaryKey*/})
+                @Html.ActionLink("Details", "Details", new { /* id = item.PrimaryKey*/})
+                @Html.ActionLink("Delete", "Delete", new { /* id = item.PrimaryKey*/})
+            </td>
+        </tr>
+
+    }
+</table>
