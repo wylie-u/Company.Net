@@ -20,12 +20,26 @@ namespace CompanyManager.Repositories
             return Task.FromResult(users);
         }
 
+        public Task<User> GetUserAsync(int id)
+        {
+            var user = _collection.FindById(id);
+
+            return Task.FromResult(user);
+        }
+
         public Task AddUserAsync(User user)
         {
             _collection.Insert(user);
 
             return Task.CompletedTask;
         }
+
+        //public Task DeleteUserAsync(User user)
+        //{
+        //    _collection.Delete(user.Id);
+
+        //    return Task.CompletedTask;
+        //}
     }
 }
 
