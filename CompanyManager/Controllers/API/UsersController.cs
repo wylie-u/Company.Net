@@ -11,23 +11,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyManager.Controllers
 {
-    [Route("[controller]")]
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    public class UsersController : Controller
     {
+
         private readonly IUserRepository _userRepository;
 
-        public UserController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-       //working
-       [HttpGet]
+        // GET: users
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers(UserViewModel user)
         {
             var users = await _userRepository.GetUsersAsync();
@@ -38,13 +34,13 @@ namespace CompanyManager.Controllers
             }
 
             //var response = new UsersResponse() { Users = users };
-            return View("Index", users);
+            return Ok(users);
 
         }
 
-        // GET user/id
+        // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetUser(int id)
+        public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _userRepository.GetUserAsync(id);
 
@@ -53,50 +49,38 @@ namespace CompanyManager.Controllers
                 return NotFound();
             }
 
-            
-
             return Ok(user);
         }
 
         // POST users
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<UserViewModel>>> AddUser(UserViewModel usermodel)
+        public async Task<ActionResult<User>> AddUser(UserViewModel userViewModel)
         {
-
             var user = new User()
-            { };
-            
+            {
+                FirstName = userViewModel.FirstName,
+                LastName = userViewModel.LastName,
+                Username = userViewModel.Username,
+                Email = userViewModel.Email
+            };
+
             await _userRepository.AddUserAsync(user);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View("Index", user);
+            return View("Index");
 
         }
 
-        // PUT users/id
+        // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE users/id
+        //// DELETE api/values/5
         //[HttpDelete("{id}")]
         //public async Task<ActionResult> DeleteUser(int id)
         //{
-        //    var user = await _userRepository.GetUserAsync(id);
-
-        //    if (user is null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    await _userRepository.DeleteUserAsync(user);
-
-        //    return RedirectToAction("Index");
+        //    var user = 
         //}
     }
 }

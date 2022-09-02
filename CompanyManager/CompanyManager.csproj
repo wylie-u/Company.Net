@@ -11,6 +11,7 @@
     <None Remove="Repositories\" />
     <None Remove="ViewModels\" />
     <None Remove="Views\Users\" />
+    <None Remove="Controllers\API\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.12" />
@@ -19,5 +20,6 @@
     <Folder Include="Repositories\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\User\" />
+    <Folder Include="Controllers\API\" />
   </ItemGroup>
 </Project>

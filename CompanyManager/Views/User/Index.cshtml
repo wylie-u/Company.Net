@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CompanyManager.ViewModels.UserViewModel>
+﻿@model IEnumerable<CompanyManager.Models.User>
 
 @{
     ViewData["Title"] = "Information";
@@ -30,11 +30,15 @@
             <td>@Html.DisplayFor(modelItem => item.LastName)</td>
             @*<td>@Html.DisplayFor(modelItem => item.Age)</td>
             <td>@Html.DisplayFor(modelItem => item.isActive)</td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id = item.PrimaryKey*/})
-                @Html.ActionLink("Details", "Details", new { /* id = item.PrimaryKey*/})
-                @Html.ActionLink("Delete", "Delete", new { /* id = item.PrimaryKey*/})
-            </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id = item.PrimaryKey*/})
+            @Html.ActionLink("Details", "Details", new { /* id = item.PrimaryKey*/})
+            @using (Html.BeginForm("DeleteUser","User", new { id = item.Id }))
+                {
+                @Html.ActionLink("Delete", "DeleteUser", "User", new { id = item.Id })
+            }
+        </td>
+
         </tr>
 
     }
